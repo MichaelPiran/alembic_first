@@ -3,11 +3,15 @@
 Start a PostgreSQL container:
 ```sh
 docker run --rm -d --name postgres -e POSTGRES_USER=myuser -e POSTGRES_PASSWORD=mypassword -p 5432:5432 postgres
+
+docker run --rm -d --name mssql -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=mypassword' -p 1433:1433 mcr.microsoft.com/mssql/server
 ```
 
 Create a new database:
 ```sh
 docker exec -it postgres psql -U myuser -c 'CREATE DATABASE mydb;'
+
+docker exec -it mssql /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'mypassword' -Q 'CREATE DATABASE mydb;'
 ```
 
 ## Install Python Dependencies
